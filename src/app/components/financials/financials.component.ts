@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSort, MatTableDataSource, MatPaginator, MatDialogTitle, MatDialog } from '@angular/material';
 import { DailyFinancial} from '../../interfaces'
 import { AddFinancialModalService } from './addFinancialDialog/add-financial-modal.service'
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-financials',
@@ -15,22 +16,36 @@ export class FinancialsComponent implements OnInit {
 	displayedColumns: string[] = [
 		'date', 'ticketSales', 'eventSales', 'concessionSales', 'researchFunding', 'donationFunding'
 	];
-  constructor(private addFinancialModalService: AddFinancialModalService,
+  constructor(private addFinancialModalService: AddFinancialModalService, private dataService: DataService,
 	public dialog: MatDialog,) { 
-	  this.dailyFinancials = [{id : 1, ticketSales: 5, eventSales: 6, concessionSales: 7, researchFunding: 8, donationFunding: 9},
-	  							{id : 2, ticketSales: 5, eventSales: 6, concessionSales: 7, researchFunding: 8, donationFunding: 9}]
-	  this.dataSource = new MatTableDataSource(this.dailyFinancials)
 		}
   ngOnInit() {
+	  this.getFinancials()
   }
 
   openDialog(){
-	this.addFinancialModalService.openDialog(null).subscribe(result =>{
+	this.addFinancialModalService.openDialog(null).subscribe(result=>{
 		if (result != undefined)
 		{
-			this.dailyFinancials.push(result.data)
-			this.dataSource = new MatTableDataSource(this.dailyFinancials)
+			this.saveFinancial(result)
 		}
 	})
 	}	
+
+	getFinancials(){
+		this.dataService.getAllFinancialsEndpoint().subscribe(result => {
+			this.dailyFinancials = []
+			result.forEach(element => {
+				this.dailyFinancials.push(element.data)
+			});
+			this.dataSource = new MatTableDataSource(this.dailyFinancials)
+		})
+	}
+
+	saveFinancial(data : DailyFinancial){
+		this.dataService.addNewFinancialEndpoint(data).subscribe(result =>{
+			console.log(result)
+			this.getFinancials()
+		})
+	}
 }

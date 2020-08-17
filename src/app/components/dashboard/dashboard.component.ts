@@ -15,6 +15,10 @@ import {
 	ApexLegend,
 	ApexGrid
   } from "ng-apexcharts";
+import { DataService } from 'src/app/services/data.service';
+import { DailyFinancial } from 'src/app/interfaces';
+import { ThrowStmt } from '@angular/compiler';
+
 
   export type PieChartOptions = {
 	series: ApexNonAxisChartSeries;
@@ -63,20 +67,22 @@ export class DashboardComponent implements OnInit {
 	public incomeChartOptions: Partial<LineChartOptions> = {};
 	public fishChartOptions: Partial<BarChartOptions> = {};
 
-  constructor() { 
+	dailyFinancials: DailyFinancial[] = [];
+	doneLoading : boolean = false
+	
+  constructor(private dataService: DataService,) { 
 	  
 	  
   }
 
   ngOnInit() {
-	  this.buildFinancialsChart()
-	  this.buildIncomeChart()
-	  this.buildFishChart()
+	  this.getFinancials()
+
   }
 
   buildFinancialsChart(){
 	this.financialSpreadChartOptions = {
-		series: [25,25,30,10,10],
+		series: [],
 		chart: {
 			width: "100%",
 			type: "pie"
@@ -109,7 +115,10 @@ export class DashboardComponent implements OnInit {
 			}
 		  }
 		]
-	  };
+	  }
+	  
+	 let spread = this.getFinancialSpread(this.dailyFinancials)
+	 this.financialSpreadChartOptions.series = spread
   }
 
   buildIncomeChart(){
@@ -117,7 +126,7 @@ export class DashboardComponent implements OnInit {
 		series: [
 		  {
 			name: "Average Daily Income 2020",
-			data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+			data: []
 		  }
 		],
 		chart: {
@@ -145,18 +154,18 @@ export class DashboardComponent implements OnInit {
 		},
 		xaxis: {
 		  categories: [
-			"1/1",
-			"1/2",
-			"1/3",
-			"1/4",
-			"1/5",
-			"1/6",
-			"1/7",
-			"1/8",
-			"1/9"
 		  ]
 		}
 	  };
+
+	  let incomeArray = []
+	  this.dailyFinancials.forEach(day => {
+		  incomeArray.push(this.sumOfDay(day))
+		  this.incomeChartOptions.xaxis.categories.push(day.id)
+	  });
+	  this.incomeChartOptions.series[0].data = incomeArray
+
+
   }
   buildFishChart(){
 	this.fishChartOptions = {
@@ -229,4 +238,55 @@ export class DashboardComponent implements OnInit {
 		}
 	  };
   }
+
+  getFinancials(){
+	this.dataService.getAllFinancialsEndpoint().subscribe(result => {
+		this.dailyFinancials = []
+		result.forEach(element => {
+			element.data.id = element.id
+			this.dailyFinancials.push(element.data)
+		});
+		this.buildFinancialsChart()
+		this.buildIncomeChart()
+		this.buildFishChart()
+	})
+
+
+}
+	sumOfDay(day : DailyFinancial) : number {
+		let sum = 0
+		sum += day.ticketSales;
+		sum += day.eventSales;
+		sum += day.concessionSales;
+		sum += day.researchFunding;
+		sum += day.donationFunding;
+		return sum
+
+	}
+
+	getFinancialSpread(days: DailyFinancial[]) : number[] {
+		let ticketSum = 0;
+		let eventSum = 0;
+		let concessionSum = 0;
+		let researchSum = 0;
+		let donationSum = 0;
+	
+		days.forEach(element => {
+			ticketSum += element.ticketSales
+		});
+		days.forEach(element => {
+			eventSum += element.eventSales
+		});
+		days.forEach(element => {
+			concessionSum += element.concessionSales
+		});
+		days.forEach(element => {
+			researchSum += element.researchFunding
+		});
+		days.forEach(element => {
+			donationSum += element.donationFunding
+		});
+
+		return [ticketSum,eventSum,concessionSum,researchSum,donationSum]
+	}
 }

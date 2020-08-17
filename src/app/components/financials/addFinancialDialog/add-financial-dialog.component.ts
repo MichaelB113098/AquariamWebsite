@@ -32,11 +32,11 @@ export class AddFinancialDialogComponent implements OnInit {
 	  if (this.form.valid)
 	  {
 		let daily : DailyFinancial = {id: 0,
-			 ticketSales: this.form.get("ticketInput").value,
-			 eventSales: this.form.get("eventInput").value,
-			 concessionSales: this.form.get("concessionsInput").value,
-			 researchFunding: this.form.get("researchInput").value,
-			 donationFunding: this.form.get("donationInput").value }
+			 ticketSales: parseInt(this.form.get("ticketInput").value),
+			 eventSales: parseInt(this.form.get("eventInput").value),
+			 concessionSales: parseInt(this.form.get("concessionsInput").value),
+			 researchFunding: parseInt(this.form.get("researchInput").value),
+			 donationFunding: parseInt(this.form.get("donationInput").value) }
 		this.dialogRef.close({event:"add",data:daily});
 	  }
   }

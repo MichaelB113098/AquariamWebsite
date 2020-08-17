@@ -17,6 +17,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { MatTableModule } from '@angular/material';
 import { AddFinancialModalService } from './components/financials/addFinancialDialog/add-financial-modal.service';
 import { AddFinancialDialogComponent } from './components/financials/addFinancialDialog/add-financial-dialog.component';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { AddFinancialDialogComponent } from './components/financials/addFinancia
 	NgApexchartsModule,
 	MatDialogModule
   ],
-  providers: [AddFinancialModalService,
+  providers: [AddFinancialModalService, DataService,
 	{ provide: MAT_DIALOG_DATA, useValue: {} },
 	{ provide: MatDialogRef, useValue: {} },],
   bootstrap: [AppComponent],
