@@ -1,0 +1,28 @@
+{
+	"DailyFinancial": [
+		{
+			"id" : 1,
+			"ticketSales" : 2500,
+			"eventSales" : 1000,
+			"concessionSales" : 3000,
+			"researchFunding" : 500,
+			"donationFunding" : 75
+		},
+		{
+			"id" : 2,
+			"ticketSales" : 1800,
+			"eventSales" : 0,
+			"concessionSales" : 4000,
+			"researchFunding" : 0,
+			"donationFunding" : 100
+		},
+		{
+			"id" : 3,
+			"ticketSales" : 4000,
+			"eventSales" : 3000,
+			"concessionSales" : 2000,
+			"researchFunding" : 250,
+			"donationFunding" : 25
+		}
+	]
+}

@@ -1,0 +1,42 @@
+<div class="card-header">
+    <div class="pull-left">
+        <h5>Financial Log</h5>
+    </div>
+    <div class="pull-right top-right-buttons">
+        <button class="btn btn-primary" (click)="openDialog()">
+            Insert Daily Financials
+        </button>
+    </div>
+</div>
+<div class="card-block">
+    <div>
+        <table mat-table [dataSource]="dataSource" matSort class="table-striped">
+			<ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Day </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+			</ng-container>
+			<ng-container matColumnDef="ticketSales">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tickets </th>
+                <td mat-cell *matCellDef="let element"> {{'$' + element.ticketSales}} </td>
+			</ng-container>
+			<ng-container matColumnDef="eventSales">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Events </th>
+                <td mat-cell *matCellDef="let element"> {{'$' + element.eventSales}} </td>
+			</ng-container>
+			<ng-container matColumnDef="concessionSales">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Concessions </th>
+                <td mat-cell *matCellDef="let element"> {{'$' + element.concessionSales}} </td>
+			</ng-container>
+			<ng-container matColumnDef="researchFunding">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Research </th>
+                <td mat-cell *matCellDef="let element"> {{'$' + element.researchFunding}} </td>
+			</ng-container>
+			<ng-container matColumnDef="donationFunding">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Donations </th>
+                <td mat-cell *matCellDef="let element"> {{'$' + element.donationFunding}} </td>
+            </ng-container>
+			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>

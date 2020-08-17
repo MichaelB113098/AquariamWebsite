@@ -1,0 +1,36 @@
+<div id="charts">
+<div id="financialSpreadChart">
+	<apx-chart
+	  [series]="financialSpreadChartOptions.series"
+	  [chart]="financialSpreadChartOptions.chart"
+	  [labels]="financialSpreadChartOptions.labels"
+	  [title]="financialSpreadChartOptions.title"
+	  [theme]="financialSpreadChartOptions.theme"
+	  [responsive]="financialSpreadChartOptions.responsive"
+	></apx-chart>
+  </div>
+  <div id="averageIncomeChart">
+	<apx-chart
+	  [series]="incomeChartOptions.series"
+	  [chart]="incomeChartOptions.chart"
+	  [xaxis]="incomeChartOptions.xaxis"
+	  [dataLabels]="incomeChartOptions.dataLabels"
+	  [grid]="incomeChartOptions.grid"
+	  [stroke]="incomeChartOptions.stroke"
+	  [title]="incomeChartOptions.title"
+	></apx-chart>
+  </div>
+  <div id="fishDistributionChart">
+	<apx-chart
+	  [series]="fishChartOptions.series"
+	  [chart]="fishChartOptions.chart"
+	  [dataLabels]="fishChartOptions.dataLabels"
+	  [plotOptions]="fishChartOptions.plotOptions"
+	  [yaxis]="fishChartOptions.yaxis"
+	  [xaxis]="fishChartOptions.xaxis"
+	  [legend]="fishChartOptions.legend"
+	  [colors]="fishChartOptions.colors"
+	  [grid]="fishChartOptions.grid"
+	></apx-chart>
+  </div>
+</div>

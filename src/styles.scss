@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+
+@import '../node_modules/@angular/material/theming';
+
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+.companyHeader {
+
+    max-height: 25%;
+	display: inline-flex;
+	
+	.img, img{
+		vertical-align: middle;
+		border-style: solid;
+		width: 75%;
+	}
+
+	.h5, h5{
+		text-align: center;
+		font-size: 3.4vw;
+		width: 25%;
+		padding-top: 20px;
+	};
+}
+
+.is-active{
+color:darkblue
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow: overlay; }

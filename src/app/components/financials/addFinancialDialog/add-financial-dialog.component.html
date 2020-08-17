@@ -1,0 +1,25 @@
+<form class = "formInput" [formGroup] = "form">
+	<mat-form-field>
+		<mat-label>Ticket Sales</mat-label>
+		<input formControlName="ticketInput" matInput>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Event Sales</mat-label>
+		<input formControlName="eventInput" matInput>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Concession Sales</mat-label>
+		<input formControlName="concessionsInput" matInput>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Research Funding</mat-label>
+		<input formControlName="researchInput" matInput>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Donations</mat-label>
+		<input formControlName="donationInput" matInput>
+	</mat-form-field>
+</form>
+<button class="btn btn-primary" (click)="save()">
+	Add
+</button>
