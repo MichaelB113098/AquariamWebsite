@@ -1,0 +1,21 @@
+<form class = "formInput" [formGroup] = "form">
+	<mat-form-field>
+		<mat-label>Animal Name</mat-label>
+		<input formControlName="nameInput" matInput>
+	</mat-form-field>
+	<mat-form-field>
+	<mat-label>Number of Animals</mat-label>
+		<input formControlName="quantityInput" matInput>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Location</mat-label>
+		<mat-select formControlName="locationInput" >
+		  <mat-option *ngFor="let location of locations" [value]="location">
+			{{location}}
+		  </mat-option>
+		</mat-select>
+	</mat-form-field>
+</form>
+<button class="btn btn-primary" (click)="save()">
+	Add
+</button>

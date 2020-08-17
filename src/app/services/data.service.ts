@@ -2,7 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { concatMap, map, filter } from 'rxjs/operators';
-import { DailyFinancial } from '../interfaces';
+import { DailyFinancial, FishEntry } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,7 @@ export class DataService {
   };
   
   get financialsUrl() {return this._baseUrl + '/DailyFinancial'}
+  get fishUrl() {return this._baseUrl + '/Fish'}
 
     constructor(private httpClient: HttpClient,
         injector: Injector) {
@@ -32,6 +33,14 @@ export class DataService {
 
     addNewFinancialEndpoint<T>(data: DailyFinancial): Observable<any> {
       return this.httpClient.post(this.financialsUrl, data, this.httpOptions)
+    }
+
+    getAllFishEndpoint<T>(): Observable<any> {
+      return this.httpClient.get(this.fishUrl, this.httpOptions).pipe();
+    }
+
+    addNewFishEndpoint<T>(data: FishEntry): Observable<any> {
+      return this.httpClient.post(this.fishUrl, data, this.httpOptions)
     }
 
 }

@@ -1,0 +1,38 @@
+.no-margin-wrapper {
+	margin: 0px -30px;
+    position: fixed;
+    top: 50px;
+    bottom: 0px;
+    width: 100%;
+}
+
+	.card-block {
+		padding: 0px;
+		overflow-y: auto;
+		height: 100%;
+		position: relative;
+
+		table {
+			margin-bottom: 3rem;			
+			width: 100%;
+
+			tr {
+				&:hover {
+					background: #d7eef6;
+				}
+
+				&.mat-row {
+					height: 2.25rem;
+				}
+
+				&.mat-header-row {
+					height: 3rem;
+				}
+			}	
+
+			.mat-cell {
+				font-size: 0.75rem;
+			}
+		}
+
+}

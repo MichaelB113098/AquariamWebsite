@@ -16,7 +16,7 @@ import {
 	ApexGrid
   } from "ng-apexcharts";
 import { DataService } from 'src/app/services/data.service';
-import { DailyFinancial } from 'src/app/interfaces';
+import { DailyFinancial, FishEntry } from 'src/app/interfaces';
 import { ThrowStmt } from '@angular/compiler';
 
 
@@ -68,7 +68,20 @@ export class DashboardComponent implements OnInit {
 	public fishChartOptions: Partial<BarChartOptions> = {};
 
 	dailyFinancials: DailyFinancial[] = [];
+	fish: FishEntry[] = []
 	doneLoading : boolean = false
+
+	locations : string[] = [
+		"Salt Water",
+		"Fresh Water",
+		"Aquatic Mammal",
+		"Deep Sea",
+		"Petting Zoo",
+		"Artic Land Animals",
+		"Amphibians",
+		"Special Event Animals"
+		]
+
 	
   constructor(private dataService: DataService,) { 
 	  
@@ -77,6 +90,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 	  this.getFinancials()
+	  this.getFishDistribution()
 
   }
 
@@ -167,12 +181,12 @@ export class DashboardComponent implements OnInit {
 
 
   }
-  buildFishChart(){
+  buildFishChart(fishData: number[]){
 	this.fishChartOptions = {
 		series: [
 		  {
 			name: "Fish Distribution",
-			data: [21, 22, 10, 28, 16, 21, 13, 30]
+			data: fishData
 		  }
 		],
 		chart: {
@@ -248,7 +262,7 @@ export class DashboardComponent implements OnInit {
 		});
 		this.buildFinancialsChart()
 		this.buildIncomeChart()
-		this.buildFishChart()
+
 	})
 
 
@@ -288,5 +302,32 @@ export class DashboardComponent implements OnInit {
 		});
 
 		return [ticketSum,eventSum,concessionSum,researchSum,donationSum]
+	}
+
+	getFishDistribution(){
+		this.dataService.getAllFishEndpoint().subscribe(result => {
+			this.fish = []
+			result.forEach(element => {
+				this.fish.push(element.data)
+			});
+			let locationDistribution = [];
+			this.locations.forEach(location => {
+				let sum = 0;
+				this.fish.forEach(element => {
+					if (element.location == location)
+						sum += element.quantity
+				});
+				locationDistribution.push(sum)
+			});
+			this.buildFishChart(locationDistribution)
+		})
+
+	}
+
+	sumFish(fish : FishEntry[]){
+		let sum = 0
+		fish.forEach(element => {
+			sum += element.quantity
+		});
 	}
 }

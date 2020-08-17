@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule, MatLabel, MatInputModule } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule, MatLabel, MatInputModule, MatSelectModule, MatSortModule } from '@angular/material';
 
 import { MatTabsModule } from '@angular/material/tabs'
 import { AppComponent } from './app.component';
@@ -18,6 +18,8 @@ import { MatTableModule } from '@angular/material';
 import { AddFinancialModalService } from './components/financials/addFinancialDialog/add-financial-modal.service';
 import { AddFinancialDialogComponent } from './components/financials/addFinancialDialog/add-financial-dialog.component';
 import { DataService } from './services/data.service';
+import { FishDialogComponent } from './components/fish/fishDialog/fish-dialog.component';
+import { FishModalService } from './components/fish/fishDialog/fish-modal.service';
 
 @NgModule({
   declarations: [
@@ -25,8 +27,9 @@ import { DataService } from './services/data.service';
     AboutComponent,
     DashboardComponent,
     FinancialsComponent,
-	FishComponent,
-	AddFinancialDialogComponent
+	  FishComponent,
+    AddFinancialDialogComponent,
+    FishDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -34,7 +37,9 @@ import { DataService } from './services/data.service';
 	FormsModule,
 	MatTabsModule,
 	MatTableModule,
-	MatInputModule,
+  MatInputModule,
+  MatSelectModule,
+  MatSortModule,
 	FormsModule,
 	ReactiveFormsModule,
 	AppRoutingModule,
@@ -45,10 +50,10 @@ import { DataService } from './services/data.service';
 	NgApexchartsModule,
 	MatDialogModule
   ],
-  providers: [AddFinancialModalService, DataService,
+  providers: [AddFinancialModalService,FishModalService, DataService,
 	{ provide: MAT_DIALOG_DATA, useValue: {} },
 	{ provide: MatDialogRef, useValue: {} },],
   bootstrap: [AppComponent],
-  entryComponents: [AddFinancialDialogComponent]
+  entryComponents: [AddFinancialDialogComponent, FishDialogComponent]
 })
 export class AppModule { }

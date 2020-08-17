@@ -7,3 +7,9 @@ export interface DailyFinancial{
 	donationFunding : number;
 
 }
+
+export interface FishEntry{
+	fishName : string;
+	quantity : number;
+	location : string;
+}

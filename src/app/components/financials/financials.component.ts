@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource, MatPaginator, MatDialogTitle, MatDialog } from '@angular/material';
 import { DailyFinancial} from '../../interfaces'
 import { AddFinancialModalService } from './addFinancialDialog/add-financial-modal.service'
@@ -10,7 +10,7 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./financials.component.scss']
 })
 export class FinancialsComponent implements OnInit {
-
+	@ViewChild(MatSort, {static: false}) sort: MatSort;
 	dailyFinancials: DailyFinancial[];
 	dataSource: MatTableDataSource<DailyFinancial>;
 	displayedColumns: string[] = [
@@ -39,6 +39,7 @@ export class FinancialsComponent implements OnInit {
 				this.dailyFinancials.push(element.data)
 			});
 			this.dataSource = new MatTableDataSource(this.dailyFinancials)
+			this.dataSource.sort = this.sort;
 		})
 	}
 
